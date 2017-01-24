@@ -1,0 +1,121 @@
+#!/usr/bin/env bash
+
+# Obtiene la ruta absoluta de la applicacion segun la
+# configuracion para las variables de ambiente del
+# archivo .env y setea el puerto por el que se compartira
+# la app de node.
+config-app () {
+    case "$APP" in
+        "uikit")
+            APP_PATH="$APPLICATIONS_PATH/$UIKIT_FOLDER"
+            NODE_PORT=$UIKIT_NODE_PORT
+            ;;
+        "login")
+            APP_PATH="$APPLICATIONS_PATH/$LOGIN_FOLDER"
+            NODE_PORT=$LOGIN_NODE_PORT
+            ;;
+        "kontrol")
+            APP_PATH="$APPLICATIONS_PATH/$KONTROL_FOLDER"
+            NODE_PORT=$KONTROL_NODE_PORT
+            ;;
+        "micuenta")
+            APP_PATH="$APPLICATIONS_PATH/$MICUENTA_FOLDER"
+            NODE_PORT=$MICUENTA_NODE_PORT
+            ;;
+        "checkout")
+            APP_PATH="$APPLICATIONS_PATH/$CHECKOUT_FOLDER"
+            NODE_PORT=$CHECKOUT_NODE_PORT
+            ;;
+        *)
+            echo -e "\033[0;31mAplicacion invalida:\033[0m $APP"
+            exit
+    esac
+}
+# Carga las variables de ambiente del archivo .env
+source .env
+# Comando por default
+COMPOSE="docker-compose"
+# default app
+APP="uikit"
+# ruta completa hacia la carpeta root de la app
+APP_PATH=""
+# puerto por el que se enlazara el host con el container
+NODE_PORT=""
+# Si hay argumentos al momento de ejecutar el bash entra
+if [ $# -gt 0 ]; then
+    # Instala la aplicacion indicada en el parametro $2
+    # Ejemplo: ./develop install login
+    if [ "$1" == "install" ];then
+        APP="$2"
+        config-app
+        echo -e "\033[0;33mInstalando:\033[0m $APP"
+        echo -e "\033[0;33mPath:\033[0m $APP_PATH"
+        docker run -it --rm \
+            -v $APP_PATH:/app \
+            -w /app \
+            kichink/node-utils \
+            sh -c "npm install && bower install"
+    # Actualiza la aplicacion indicada en el parametro $2
+    # Ejemplo: ./develop update login
+    elif [ "$1" == "update" ]; then
+        APP="$2"
+        config-app
+        echo -e "\033[0;33mActualizando:\033[0m $APP"
+        echo -e "\033[0;33mPath:\033[0m $APP_PATH"
+        docker run -it --rm \
+            -v $APP_PATH:/app \
+            -w /app \
+            kichink/node-utils \
+            sh -c "npm update && bower update"
+    # Hace el build de la aplicacion
+    # Ejemplo: ./develop build login
+    elif [ "$1" == "build" ]; then
+        APP="$2"
+        config-app
+        echo -e "\033[0;33mBuild:\033[0m $APP"
+        echo -e "\033[0;33mPath:\033[0m $APP_PATH"
+        docker run -it --rm \
+            -v $APP_PATH:/app \
+            -w /app \
+            kichink/node-utils \
+            sh -c "grunt build"
+    # Levanta el server de la aplicacion con grunt
+    # Ejemplo: ./develop serve login
+    elif [ "$1" == "serve" ]; then
+        APP="$2"
+        config-app
+        echo -e "\033[0;92mServe:\033[0m $APP"
+        echo -e "\033[0;92mPath:\033[0m $APP_PATH"
+        docker run -it --rm \
+            --name $APP \
+            -p $NODE_PORT:$NODE_PORT \
+            -v $APP_PATH:/app \
+            -w /app \
+            kichink/node-utils \
+            sh -c "grunt serve"
+    # Ejecuta "x" comando dentro del container de la
+    # applicacion indicada como segundo parametro.
+    # Ejemplo: ./develop run login grunt --version
+    elif [ "$1" == "run" ]; then
+        APP="$2"
+        config-app
+        shift 2
+        echo -e "\033[0;33mEjecutando comando\033[0m $@"
+        docker run -it --rm \
+            -v $APP_PATH:/app \
+            -w /app \
+            kichink/node-utils \
+            "$@"
+    # Se conecta al container
+    elif [ "$1" == "ssh" ]; then
+        echo -e "\033[0;96mSHH en el container:\033[0m $2"
+        docker exec -it $2 bash
+    # Muestra todos los contenedores vivos
+    elif [ "$1" == "all" ]; then
+        docker ps
+    else
+        $COMPOSE "$@"
+    fi
+else
+    $COMPOSE ps
+fi
