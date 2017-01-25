@@ -44,25 +44,38 @@ $ ./develop up
 
 ## Aplicaciones Node/Grunt/Gulp
 
-Para instalar una aplicacion
+Instalar una aplicacion
 
 ```sh
 $ ./develop install uikit
 ```
 
-Para actualizar una aplicacion
+Actualizar una aplicacion
 
 ```sh
 $ ./develop update uikit
 ```
 
-Para hacer build de una aplicacion
+Build de una aplicacion
 
 ```sh
 $ ./develop build uikit
 ```
 
-Para levantar una aplicacion
+Serve una aplicacion
+
+antes de levantar la app es necesario modificar el archivo `Gruntfile.js` que se encuentra en el directorio raiz del proyecto y se debe cambiar el key `hostname` a `0.0.0.0` como se muestra a continuacion:
+
+```js
+connect: {
+      options: {
+        port: 5000,
+        // Change this to '0.0.0.0' to access the server from outside.
+        hostname: '0.0.0.0',
+        livereload: 35729
+      },
+```
+y despues ejecutar el comando:
 
 ```sh
 $ ./develop serve uikit
