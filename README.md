@@ -21,7 +21,7 @@ Este Script cuenta con comandos shortcuts para realizar algunas operaciones, a c
 Listado de Comandos:
 
   - up: instala y/o levanta los contenedores
-  - down: elmina los contenedores
+  - down: elimina los contenedores
   - stop: detiene los contenedores
   - start: reinicia los contenedores detenidos
   - ps: lista los contenedores excepto los que son con Node
