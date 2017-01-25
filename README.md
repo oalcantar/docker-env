@@ -81,5 +81,19 @@ y despues ejecutar el comando:
 $ ./develop serve uikit
 ```
 
+En el Host modificar el archivo `/etc/hosts/` y agregar los dominios de las aplicaciones, ejemplo:
+
+```
+127.0.0.1       www.local.kichink.com
+127.0.0.1       api.local.kichink.com
+127.0.0.1       dev.local.admin.kichink.com
+127.0.0.1       dev.local.kontrol.kichink.com
+127.0.0.1       pagos.local.kichink.com
+127.0.0.1       checkout.local.kichink.com
+127.0.0.1       kontrol.local.kichink.com
+127.0.0.1       login.local.kichink.com
+127.0.0.1       kad.local.kichink.com
+127.0.0.1       micuenta.local.kichink.com
+```
 
 [Docker]: <https://www.docker.com/products/docker>
