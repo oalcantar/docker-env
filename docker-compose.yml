@@ -36,7 +36,7 @@ services:
         networks:
             - appnet
     db:
-        image: mysql:5.6.35
+        image: mysql:5.6.21
         ports:
             - "${MYSQL_PORT}:3306"
         environment:
