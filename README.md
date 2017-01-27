@@ -98,4 +98,19 @@ En el Host modificar el archivo `/etc/hosts/` y agregar los dominios de las apli
 127.0.0.1       micuenta.local.kichink.com
 ```
 
+## Base de Datos en local
+Para cargar la base de datos en local, antes de ejecutar el comand `./develop up` por primera vez se tiene que hacer un respaldo de la
+BDD y colocar el archivo en la carpeta `db`
+
+En los proyectos que se desee trabajar con la base de datos en local(desde el contenedor) se tiene que cambiar el archivo de la configuracion de la base de datos el parametro `hostname` por el valor `db` que es el nombre del servicio que se esta asignado para el contenedor de Mysql
+
+### SequelPro
+Para conectar `SequelPro` con la base de datos que se encuentra en el contenedor se debe de indicar los siguientes parametros:
+```
+  Host: 127.0.0.1
+  Username: root
+  Password: root
+  Port: 4306 (o el puerto asignado en la variable MYSQL_PORT del archivo .env)
+```
+
 [Docker]: <https://www.docker.com/products/docker>
