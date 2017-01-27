@@ -104,6 +104,15 @@ BDD y colocar el archivo en la carpeta `db`
 
 En los proyectos que se desee trabajar con la base de datos en local(desde el contenedor) se tiene que cambiar el archivo de la configuracion de la base de datos el parametro `hostname` por el valor `db` que es el nombre del servicio que se esta asignado para el contenedor de Mysql
 
+Acualiza las variables de configuracion de Mysql en el archivo `.env`
+
+```
+MYSQL_ROOT_PASSWORD=root
+MYSQL_DATABASE=bdd
+MYSQL_USER=user
+MYSQL_PASSWORD=password
+```
+
 ### SequelPro
 Para conectar `SequelPro` con la base de datos que se encuentra en el contenedor se debe de indicar los siguientes parametros:
 ```
