@@ -113,8 +113,18 @@ MYSQL_USER=user
 MYSQL_PASSWORD=password
 ```
 
+## Redis
+Actualizar el/los archivos de configuracion de REDIS de la aplicacion apuntando el `host` al servicio que ejecuta Redis. Ejemplo en codeigniter:
+
+```php
+File application/config/redis.php
+
+$config['redis_default']['host'] = 'redis';
+```
+
 ### SequelPro
 Para conectar `SequelPro` con la base de datos que se encuentra en el contenedor se debe de indicar los siguientes parametros:
+
 ```
   Host: 127.0.0.1
   Username: root
