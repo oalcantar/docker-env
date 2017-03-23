@@ -33,6 +33,8 @@ RUN service apache2 restart
 ENV APACHE_SITES_AVAILABLE_DIR etc/apache2/sites-available
 ENV TEMPLATE_EMAIL admin@server.com
 
+ARG APIV2_SERVERNAME
+ARG APIV2_DOCUMENT_ROOT
 ARG WWW_SERVERNAME
 ARG WWW_DOCUMENT_ROOT
 ARG API_SERVERNAME
@@ -45,6 +47,16 @@ ARG PAGOS_SERVERNAME
 ARG PAGOS_DOCUMENT_ROOT
 ARG KAD_SERVERNAME
 ARG KAD_DOCUMENT_ROOT
+
+
+# ----------------------- WWW --------------------------------
+# Agregar la config de APIV2 en apache
+ADD default.conf $APACHE_SITES_AVAILABLE_DIR/kichink_apiv2.conf
+RUN sed -i 's/template.email/'$TEMPLATE_EMAIL'/g' $APACHE_SITES_AVAILABLE_DIR/kichink_apiv2.conf
+RUN sed -i 's/template.servername/'$APIV2_SERVERNAME'/g' $APACHE_SITES_AVAILABLE_DIR/kichink_apiv2.conf
+RUN sed -i 's#template.documentroot#'$APIV2_DOCUMENT_ROOT'#g' $APACHE_SITES_AVAILABLE_DIR/kichink_apiv2.conf
+RUN a2ensite kichink_apiv2.conf
+
 
 # ----------------------- WWW --------------------------------
 # Agregar la config de WWW en apache

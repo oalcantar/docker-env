@@ -5,6 +5,8 @@ services:
             context: ./build/apache-php
             dockerfile: Dockerfile
             args:
+                - APIV2_SERVERNAME=${APIV2_SERVERNAME}
+                - APIV2_DOCUMENT_ROOT=${APIV2_DOCUMENT_ROOT}
                 - WWW_SERVERNAME=${WWW_SERVERNAME}
                 - WWW_DOCUMENT_ROOT=${WWW_DOCUMENT_ROOT}
                 - API_SERVERNAME=${API_SERVERNAME}
