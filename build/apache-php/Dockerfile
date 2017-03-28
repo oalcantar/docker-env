@@ -16,6 +16,7 @@ RUN apt-get update \
     && apt-get install -y --allow-unauthenticated php5.6 \
     && apt-get install -y --allow-unauthenticated php5.6-mcrypt libapache2-mod-php5.6 \
        php5.6-mysql php5.6-curl php5.6-sqlite php5.6-mbstring php5.6-simplexml \
+       php5.6-gd \
     && apt-get install -y vim dnsutils iputils-ping \
     && php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer \
     && apt-get install -y curl zip unzip git \
@@ -47,16 +48,16 @@ ARG PAGOS_SERVERNAME
 ARG PAGOS_DOCUMENT_ROOT
 ARG KAD_SERVERNAME
 ARG KAD_DOCUMENT_ROOT
+ARG EXPERT_SERVERNAME
+ARG EXPERT_DOCUMENT_ROOT
 
-
-# ----------------------- WWW --------------------------------
+# ----------------------- APIV2 --------------------------------
 # Agregar la config de APIV2 en apache
 ADD default.conf $APACHE_SITES_AVAILABLE_DIR/kichink_apiv2.conf
 RUN sed -i 's/template.email/'$TEMPLATE_EMAIL'/g' $APACHE_SITES_AVAILABLE_DIR/kichink_apiv2.conf
 RUN sed -i 's/template.servername/'$APIV2_SERVERNAME'/g' $APACHE_SITES_AVAILABLE_DIR/kichink_apiv2.conf
 RUN sed -i 's#template.documentroot#'$APIV2_DOCUMENT_ROOT'#g' $APACHE_SITES_AVAILABLE_DIR/kichink_apiv2.conf
 RUN a2ensite kichink_apiv2.conf
-
 
 # ----------------------- WWW --------------------------------
 # Agregar la config de WWW en apache
@@ -105,6 +106,14 @@ RUN sed -i 's/template.email/'$TEMPLATE_EMAIL'/g' $APACHE_SITES_AVAILABLE_DIR/ki
 RUN sed -i 's/template.servername/'$KAD_SERVERNAME'/g' $APACHE_SITES_AVAILABLE_DIR/kichink_kad.conf
 RUN sed -i 's#template.documentroot#'$KAD_DOCUMENT_ROOT'#g' $APACHE_SITES_AVAILABLE_DIR/kichink_kad.conf
 RUN a2ensite kichink_kad.conf
+
+# ----------------------- EXPERT --------------------------------
+# Agregar la config de EXPERT en apache
+ADD default.conf $APACHE_SITES_AVAILABLE_DIR/kichink_expert.conf
+RUN sed -i 's/template.email/'$TEMPLATE_EMAIL'/g' $APACHE_SITES_AVAILABLE_DIR/kichink_expert.conf
+RUN sed -i 's/template.servername/'$EXPERT_SERVERNAME'/g' $APACHE_SITES_AVAILABLE_DIR/kichink_expert.conf
+RUN sed -i 's#template.documentroot#'$EXPERT_DOCUMENT_ROOT'#g' $APACHE_SITES_AVAILABLE_DIR/kichink_expert.conf
+RUN a2ensite kichink_expert.conf
 
 EXPOSE 80
 CMD /usr/sbin/apache2ctl -D FOREGROUND
