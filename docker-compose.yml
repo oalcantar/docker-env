@@ -19,6 +19,8 @@ services:
                 - PAGOS_DOCUMENT_ROOT=${PAGOS_DOCUMENT_ROOT}
                 - KAD_SERVERNAME=${KAD_SERVERNAME}
                 - KAD_DOCUMENT_ROOT=${KAD_DOCUMENT_ROOT}
+                - EXPERT_SERVERNAME=${EXPERT_SERVERNAME}
+                - EXPERT_DOCUMENT_ROOT=${EXPERT_DOCUMENT_ROOT}
         image: kichink/apache-php
         ports:
             - "${APACHE_PORT}:80"
