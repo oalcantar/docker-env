@@ -50,6 +50,8 @@ ARG KAD_SERVERNAME
 ARG KAD_DOCUMENT_ROOT
 ARG EXPERT_SERVERNAME
 ARG EXPERT_DOCUMENT_ROOT
+ARG ATOMICO_SERVERNAME
+ARG ATOMICO_DOCUMENT_ROOT
 
 # ----------------------- APIV2 --------------------------------
 # Agregar la config de APIV2 en apache
@@ -114,6 +116,14 @@ RUN sed -i 's/template.email/'$TEMPLATE_EMAIL'/g' $APACHE_SITES_AVAILABLE_DIR/ki
 RUN sed -i 's/template.servername/'$EXPERT_SERVERNAME'/g' $APACHE_SITES_AVAILABLE_DIR/kichink_expert.conf
 RUN sed -i 's#template.documentroot#'$EXPERT_DOCUMENT_ROOT'#g' $APACHE_SITES_AVAILABLE_DIR/kichink_expert.conf
 RUN a2ensite kichink_expert.conf
+
+# ----------------------- ATOMICO --------------------------------
+# Agregar la config de ATOMICO en apache
+ADD default.conf $APACHE_SITES_AVAILABLE_DIR/kichink_atomico.conf
+RUN sed -i 's/template.email/'$TEMPLATE_EMAIL'/g' $APACHE_SITES_AVAILABLE_DIR/kichink_atomico.conf
+RUN sed -i 's/template.servername/'$ATOMICO_SERVERNAME'/g' $APACHE_SITES_AVAILABLE_DIR/kichink_atomico.conf
+RUN sed -i 's#template.documentroot#'$ATOMICO_DOCUMENT_ROOT'#g' $APACHE_SITES_AVAILABLE_DIR/kichink_atomico.conf
+RUN a2ensite kichink_atomico.conf
 
 EXPOSE 80
 CMD /usr/sbin/apache2ctl -D FOREGROUND

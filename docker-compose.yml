@@ -21,6 +21,8 @@ services:
                 - KAD_DOCUMENT_ROOT=${KAD_DOCUMENT_ROOT}
                 - EXPERT_SERVERNAME=${EXPERT_SERVERNAME}
                 - EXPERT_DOCUMENT_ROOT=${EXPERT_DOCUMENT_ROOT}
+                - ATOMICO_SERVERNAME=${ATOMICO_SERVERNAME}
+                - ATOMICO_DOCUMENT_ROOT=${ATOMICO_DOCUMENT_ROOT}
         image: kichink/apache-php
         ports:
             - "${APACHE_PORT}:80"
