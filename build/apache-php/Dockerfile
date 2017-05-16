@@ -2,14 +2,15 @@ FROM ubuntu:16.04
 
 MAINTAINER Kichink
 
+RUN apt-get clean && apt-get update
+RUN apt-get install locales
 RUN locale-gen en_US.UTF-8
 
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-RUN apt-get update \
-    && apt-get install -y software-properties-common \
+RUN apt-get install -y software-properties-common \
     && apt-get install -y apache2 \
     && add-apt-repository -y ppa:ondrej/php \
     && apt-get update \
@@ -20,8 +21,7 @@ RUN apt-get update \
     && apt-get install -y vim dnsutils iputils-ping \
     && php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer \
     && apt-get install -y curl zip unzip git \
-    && mkdir /run/php \
-    && apt-get clean
+    && mkdir /run/php
 
 ENV TERM=xterm
 
