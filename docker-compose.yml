@@ -42,7 +42,7 @@ services:
         networks:
             - appnet
     db:
-        image: mysql:5.6.21
+        image: mysql:5.6.34
         ports:
             - "${MYSQL_PORT}:3306"
         environment:
@@ -53,6 +53,7 @@ services:
         volumes:
             - ./db:/docker-entrypoint-initdb.d
             - data:/var/lib/mysql
+            - ./db/conf:/etc/mysql
         networks:
             - appnet
 networks:
