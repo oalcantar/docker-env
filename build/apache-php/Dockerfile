@@ -23,6 +23,15 @@ RUN apt-get install -y software-properties-common \
     && apt-get install -y curl zip unzip git \
     && mkdir /run/php
 
+RUN   echo "zend_extension_ts=\"/usr/lib/php/20131226/xdebug.so\"" >> /etc/php/5.6/apache2/php.ini
+RUN   echo "xdebug.remote_autostart=on" >> /etc/php/5.6/apache2/php.ini
+RUN   echo "xdebug.remote_connect_back=off" >> /etc/php/5.6/apache2/php.ini
+RUN   echo "xdebug.remote_handler=dbgp" >> /etc/php/5.6/apache2/php.ini
+RUN   echo "xdebug.profiler_enable=0" >> /etc/php/5.6/apache2/php.ini
+RUN   echo "xdebug.profiler_output_dir=\"/var/www/html\"" >> /etc/php/5.6/apache2/php.ini
+RUN   echo "xdebug.idekey=\"PHP-DEBUG\"" >> /etc/php/5.6/apache2/php.ini
+RUN   echo "xdebug.remote_port=9000" >> /etc/php/5.6/apache2/php.ini
+
 ENV TERM=xterm
 
 # Habilitar modrewrite en apache
