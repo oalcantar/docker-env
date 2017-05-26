@@ -8,7 +8,8 @@ RUN apt-get update \
     && apt-get install -y ruby-full \
     && gem update --system \
     && gem install compass \
-    && npm install gulp-cli -g
+    && npm install gulp-cli -g \
+    && npm install -g node-sass
 
 # Define working directory.
 WORKDIR /data
