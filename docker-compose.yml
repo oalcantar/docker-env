@@ -28,7 +28,7 @@ services:
             - "${APACHE_PORT}:80"
         environment:
             PHP_XDEBUG_ENABLED: 1
-            XDEBUG_CONFIG: remote_host=192.168.0.150
+            XDEBUG_CONFIG: remote_host=${REMOTE_HOST} remote_enable=on
         volumes:
             - ${APPLICATIONS_PATH}:/var/www/html
         networks:
@@ -42,6 +42,8 @@ services:
             - appnet
     redis:
         image: redis:alpine
+        ports:
+            - "6379:6379"
         networks:
             - appnet
     db:
