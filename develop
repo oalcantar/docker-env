@@ -9,22 +9,27 @@ config-app () {
         "uikit")
             APP_PATH="$APPLICATIONS_PATH/$UIKIT_FOLDER"
             NODE_PORT=$UIKIT_NODE_PORT
+            LIVERELOAD_PORT=$UIKIT_LIVERELOAD_PORT
             ;;
         "login")
             APP_PATH="$APPLICATIONS_PATH/$LOGIN_FOLDER"
             NODE_PORT=$LOGIN_NODE_PORT
+            LIVERELOAD_PORT=$LOGIN_LIVERELOAD_PORT
             ;;
         "kontrol")
             APP_PATH="$APPLICATIONS_PATH/$KONTROL_FOLDER"
             NODE_PORT=$KONTROL_NODE_PORT
+            LIVERELOAD_PORT=$KONTROL_LIVERELOAD_PORT
             ;;
         "micuenta")
             APP_PATH="$APPLICATIONS_PATH/$MICUENTA_FOLDER"
             NODE_PORT=$MICUENTA_NODE_PORT
+            LIVERELOAD_PORT=$MICUENTA_LIVERELOAD_PORT
             ;;
         "checkout")
             APP_PATH="$APPLICATIONS_PATH/$CHECKOUT_FOLDER"
             NODE_PORT=$CHECKOUT_NODE_PORT
+            LIVERELOAD_PORT=$CHECKOUT_LIVERELOAD_PORT
             ;;
         *)
             echo -e "\033[0;31mAplicacion invalida:\033[0m $APP"
@@ -89,6 +94,7 @@ if [ $# -gt 0 ]; then
         docker run -it --rm \
             --name $APP \
             -p $NODE_PORT:$NODE_PORT \
+            -p $LIVERELOAD_PORT:$LIVERELOAD_PORT \
             -v $APP_PATH:/app \
             -w /app \
             kichink/node-utils \
