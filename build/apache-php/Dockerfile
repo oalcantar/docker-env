@@ -17,7 +17,7 @@ RUN apt-get install -y software-properties-common \
     && apt-get install -y --allow-unauthenticated php5.6 \
     && apt-get install -y --allow-unauthenticated php5.6-mcrypt libapache2-mod-php5.6 \
        php5.6-mysql php5.6-curl php5.6-sqlite php5.6-xdebug nano php5.6-mbstring php5.6-simplexml \
-       php5.6-gd \
+       php5.6-gd redis-tools \
     && apt-get install -y vim dnsutils iputils-ping \
     && php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer \
     && apt-get install -y curl zip unzip git \
