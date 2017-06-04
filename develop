@@ -31,8 +31,6 @@ config-app () {
             exit
     esac
 }
-# Carga las variables de ambiente del archivo .env
-source .env
 # Comando por default
 COMPOSE="docker-compose"
 # default app

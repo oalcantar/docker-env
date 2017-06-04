@@ -24,6 +24,8 @@ services:
                 - ATOMICO_SERVERNAME=${ATOMICO_SERVERNAME}
                 - ATOMICO_DOCUMENT_ROOT=${ATOMICO_DOCUMENT_ROOT}
         image: kichink/apache-php
+        env_file:
+          - ./.env
         ports:
             - "${APACHE_PORT}:80"
         environment:
