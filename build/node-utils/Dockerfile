@@ -10,7 +10,7 @@ RUN apt-get update \
     && gem install compass \
     && npm install gulp-cli -g \
     && npm install -g node-sass
-
+RUN apt-get -y install build-essential
 # Define working directory.
 WORKDIR /data
-CMD ['bash']
+CMD [ "node" ]

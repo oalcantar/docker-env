@@ -36,6 +36,8 @@ config-app () {
             exit
     esac
 }
+# Obtiene la ip dinamicamente del HOST
+export REMOTE_HOST=$(ipconfig getifaddr en1)
 # Comando por default
 COMPOSE="docker-compose"
 # default app
