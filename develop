@@ -119,6 +119,9 @@ if [ $# -gt 0 ]; then
     # Muestra todos los contenedores vivos
     elif [ "$1" == "all" ]; then
         docker ps
+    elif [ "$1" == "restart" ]; then
+        $COMPOSE down
+        $COMPOSE up -d
     else
         $COMPOSE "$@"
     fi
