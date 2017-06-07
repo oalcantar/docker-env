@@ -37,7 +37,7 @@ config-app () {
     esac
 }
 # Obtiene la ip dinamicamente del HOST
-export REMOTE_HOST=$(ipconfig getifaddr en1)
+export REMOTE_HOST=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1' | head -n1)
 # Comando por default
 COMPOSE="docker-compose"
 # default app
@@ -91,6 +91,8 @@ if [ $# -gt 0 ]; then
         config-app
         echo -e "\033[0;92mServe:\033[0m $APP"
         echo -e "\033[0;92mPath:\033[0m $APP_PATH"
+        echo -e "\033[0;92mNodePort:\033[0m $NODE_PORT"
+        echo -e "\033[0;92mLivePort:\033[0m $LIVERELOAD_PORT"
         docker run -it --rm \
             --name $APP \
             -p $NODE_PORT:$NODE_PORT \
