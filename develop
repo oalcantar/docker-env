@@ -38,6 +38,8 @@ config-app () {
 }
 # Obtiene la ip dinamicamente del HOST
 export REMOTE_HOST=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1' | head -n1)
+# Carga las variables de ambiente del archivo .env
+source .env
 # Comando por default
 COMPOSE="docker-compose"
 # default app
