@@ -37,103 +37,12 @@ ENV TERM=xterm
 
 # Habilitar modrewrite en apache
 RUN a2enmod rewrite
-# Renicia el servidor de apache
-RUN service apache2 restart
 
-# Variables de ambiente
-ENV APACHE_SITES_AVAILABLE_DIR etc/apache2/sites-available
-ENV TEMPLATE_EMAIL admin@server.com
-
-ARG APIV2_SERVERNAME
-ARG APIV2_DOCUMENT_ROOT
-ARG WWW_SERVERNAME
-ARG WWW_DOCUMENT_ROOT
-ARG API_SERVERNAME
-ARG API_DOCUMENT_ROOT
-ARG ADMIN_SERVERNAME
-ARG ADMIN_DOCUMENT_ROOT
-ARG KONTROL_SERVERNAME
-ARG KONTROL_DOCUMENT_ROOT
-ARG PAGOS_SERVERNAME
-ARG PAGOS_DOCUMENT_ROOT
-ARG KAD_SERVERNAME
-ARG KAD_DOCUMENT_ROOT
-ARG EXPERT_SERVERNAME
-ARG EXPERT_DOCUMENT_ROOT
-ARG ATOMICO_SERVERNAME
-ARG ATOMICO_DOCUMENT_ROOT
-
-# ----------------------- APIV2 --------------------------------
-# Agregar la config de APIV2 en apache
-ADD default.conf $APACHE_SITES_AVAILABLE_DIR/kichink_apiv2.conf
-RUN sed -i 's/template.email/'$TEMPLATE_EMAIL'/g' $APACHE_SITES_AVAILABLE_DIR/kichink_apiv2.conf
-RUN sed -i 's/template.servername/'$APIV2_SERVERNAME'/g' $APACHE_SITES_AVAILABLE_DIR/kichink_apiv2.conf
-RUN sed -i 's#template.documentroot#'$APIV2_DOCUMENT_ROOT'#g' $APACHE_SITES_AVAILABLE_DIR/kichink_apiv2.conf
-RUN a2ensite kichink_apiv2.conf
-
-# ----------------------- WWW --------------------------------
-# Agregar la config de WWW en apache
-ADD default.conf $APACHE_SITES_AVAILABLE_DIR/kichink_www.conf
-RUN sed -i 's/template.email/'$TEMPLATE_EMAIL'/g' $APACHE_SITES_AVAILABLE_DIR/kichink_www.conf
-RUN sed -i 's/template.servername/'$WWW_SERVERNAME'/g' $APACHE_SITES_AVAILABLE_DIR/kichink_www.conf
-RUN sed -i 's#template.documentroot#'$WWW_DOCUMENT_ROOT'#g' $APACHE_SITES_AVAILABLE_DIR/kichink_www.conf
-RUN a2ensite kichink_www.conf
-
-# ----------------------- API --------------------------------
-# Agregar la config de API en apache
-ADD default.conf $APACHE_SITES_AVAILABLE_DIR/kichink_api.conf
-RUN sed -i 's/template.email/'$TEMPLATE_EMAIL'/g' $APACHE_SITES_AVAILABLE_DIR/kichink_api.conf
-RUN sed -i 's/template.servername/'$API_SERVERNAME'/g' $APACHE_SITES_AVAILABLE_DIR/kichink_api.conf
-RUN sed -i 's#template.documentroot#'$API_DOCUMENT_ROOT'#g' $APACHE_SITES_AVAILABLE_DIR/kichink_api.conf
-RUN a2ensite kichink_api.conf
-
-# ----------------------- ADMIN --------------------------------
-# Agregar la config de ADMIN en apache
-ADD default.conf $APACHE_SITES_AVAILABLE_DIR/kichink_admin.conf
-RUN sed -i 's/template.email/'$TEMPLATE_EMAIL'/g' $APACHE_SITES_AVAILABLE_DIR/kichink_admin.conf
-RUN sed -i 's/template.servername/'$ADMIN_SERVERNAME'/g' $APACHE_SITES_AVAILABLE_DIR/kichink_admin.conf
-RUN sed -i 's#template.documentroot#'$ADMIN_DOCUMENT_ROOT'#g' $APACHE_SITES_AVAILABLE_DIR/kichink_admin.conf
-RUN a2ensite kichink_admin.conf
-
-# ----------------------- KONTROL --------------------------------
-# Agregar la config de KONTROL en apache
-ADD default.conf $APACHE_SITES_AVAILABLE_DIR/kichink_kontrol.conf
-RUN sed -i 's/template.email/'$TEMPLATE_EMAIL'/g' $APACHE_SITES_AVAILABLE_DIR/kichink_kontrol.conf
-RUN sed -i 's/template.servername/'$KONTROL_SERVERNAME'/g' $APACHE_SITES_AVAILABLE_DIR/kichink_kontrol.conf
-RUN sed -i 's#template.documentroot#'$KONTROL_DOCUMENT_ROOT'#g' $APACHE_SITES_AVAILABLE_DIR/kichink_kontrol.conf
-RUN a2ensite kichink_kontrol.conf
-
-# ----------------------- PAGOS --------------------------------
-# Agregar la config de PAGOS en apache
-ADD default.conf $APACHE_SITES_AVAILABLE_DIR/kichink_pagos.conf
-RUN sed -i 's/template.email/'$TEMPLATE_EMAIL'/g' $APACHE_SITES_AVAILABLE_DIR/kichink_pagos.conf
-RUN sed -i 's/template.servername/'$PAGOS_SERVERNAME'/g' $APACHE_SITES_AVAILABLE_DIR/kichink_pagos.conf
-RUN sed -i 's#template.documentroot#'$PAGOS_DOCUMENT_ROOT'#g' $APACHE_SITES_AVAILABLE_DIR/kichink_pagos.conf
-RUN a2ensite kichink_pagos.conf
-
-# ----------------------- KAD --------------------------------
-# Agregar la config de KAD en apache
-ADD default.conf $APACHE_SITES_AVAILABLE_DIR/kichink_kad.conf
-RUN sed -i 's/template.email/'$TEMPLATE_EMAIL'/g' $APACHE_SITES_AVAILABLE_DIR/kichink_kad.conf
-RUN sed -i 's/template.servername/'$KAD_SERVERNAME'/g' $APACHE_SITES_AVAILABLE_DIR/kichink_kad.conf
-RUN sed -i 's#template.documentroot#'$KAD_DOCUMENT_ROOT'#g' $APACHE_SITES_AVAILABLE_DIR/kichink_kad.conf
-RUN a2ensite kichink_kad.conf
-
-# ----------------------- EXPERT --------------------------------
-# Agregar la config de EXPERT en apache
-ADD default.conf $APACHE_SITES_AVAILABLE_DIR/kichink_expert.conf
-RUN sed -i 's/template.email/'$TEMPLATE_EMAIL'/g' $APACHE_SITES_AVAILABLE_DIR/kichink_expert.conf
-RUN sed -i 's/template.servername/'$EXPERT_SERVERNAME'/g' $APACHE_SITES_AVAILABLE_DIR/kichink_expert.conf
-RUN sed -i 's#template.documentroot#'$EXPERT_DOCUMENT_ROOT'#g' $APACHE_SITES_AVAILABLE_DIR/kichink_expert.conf
-RUN a2ensite kichink_expert.conf
-
-# ----------------------- ATOMICO --------------------------------
-# Agregar la config de ATOMICO en apache
-ADD default.conf $APACHE_SITES_AVAILABLE_DIR/kichink_atomico.conf
-RUN sed -i 's/template.email/'$TEMPLATE_EMAIL'/g' $APACHE_SITES_AVAILABLE_DIR/kichink_atomico.conf
-RUN sed -i 's/template.servername/'$ATOMICO_SERVERNAME'/g' $APACHE_SITES_AVAILABLE_DIR/kichink_atomico.conf
-RUN sed -i 's#template.documentroot#'$ATOMICO_DOCUMENT_ROOT'#g' $APACHE_SITES_AVAILABLE_DIR/kichink_atomico.conf
-RUN a2ensite kichink_atomico.conf
+# Incluye las configuraciones de los sitios que estan en el Host
+# mediante la carpeta /etc/apache2/from-host
+RUN echo "" >> /etc/apache2/apache2.conf \
+    && echo "# Include the configurations from the host machine" >> /etc/apache2/apache2.conf \
+    && echo "IncludeOptional from-host/*.conf" >> /etc/apache2/apache2.conf
 
 EXPOSE 80
 CMD /usr/sbin/apache2ctl -D FOREGROUND
