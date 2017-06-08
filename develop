@@ -38,7 +38,7 @@ config-app () {
 # Agrega una nueva configuracion para un sitio agregando
 # un archivo .conf a la carpeta sites-available y
 # configurandolo segun el SERVERNAME y DOCUMENTROOT
-new-site () {
+add-site () {
     echo -e "\033[0;33mCreando sitio :\033[0m $SERVERNAME"
     echo -e "\033[0;33mDucumentroot :\033[0m $DOCUMENTROOT"
     # Copia el archivo default.conf para setearle los valores del site
@@ -148,14 +148,14 @@ if [ $# -gt 0 ]; then
         $COMPOSE down
         $COMPOSE up -d
     # agrega un nuevo site
-    elif [ "$1" == "new" ]; then
+    elif [ "$1" == "add" ]; then
         if [ ! -z "$2" ] && [ ! -z "$3" ]; then
             SERVERNAME="$2"
             DOCUMENTROOT="$3"
-            new-site
+            add-site
         else
-            echo -e "\033[0;31m./develop new <server_name> <document_root>\033[0m"
-            echo -e "\033[0;37mEj: ./develop new local.mysite.com mysite/public \033[0m"
+            echo -e "\033[0;31m./develop add <server_name> <document_root>\033[0m"
+            echo -e "\033[0;37mEj: ./develop add local.mysite.com mysite/public \033[0m"
         fi
     # Muestra todos los contenedores vivos
     elif [ "$1" == "all" ]; then
