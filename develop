@@ -47,7 +47,7 @@ new-site () {
     sed -i '' 's/template.servername/'$SERVERNAME'/g' sites-available/$SERVERNAME.conf
     sed -i '' 's#template.documentroot#'$DOCUMENTROOT'#g' sites-available/$SERVERNAME.conf
     # Setea el nuevo site en el archivo hosts de la maquina Host
-    echo -e "\033[0;33mAgregando a /etc/hosts (se requieren permisos root) :\033[0m"
+    echo -e "\033[0;33mAgregando a /etc/hosts (se requieren permisos root)\033[0m"
     echo '127.0.0.1       '$SERVERNAME'' | sudo tee -a /etc/hosts > /dev/null
     reload-apache
     # imprime el msg de url
@@ -143,12 +143,11 @@ if [ $# -gt 0 ]; then
     elif [ "$1" == "ssh" ]; then
         echo -e "\033[0;96mSHH en el container:\033[0m $2"
         docker exec -it $2 bash
-    # Muestra todos los contenedores vivos
-    elif [ "$1" == "all" ]; then
-        docker ps
+    # reinicia los contenedores
     elif [ "$1" == "restart" ]; then
         $COMPOSE down
         $COMPOSE up -d
+    # agrega un nuevo site
     elif [ "$1" == "new" ]; then
         if [ ! -z "$2" ] && [ ! -z "$3" ]; then
             SERVERNAME="$2"
@@ -158,6 +157,9 @@ if [ $# -gt 0 ]; then
             echo -e "\033[0;31m./develop new <server_name> <document_root>\033[0m"
             echo -e "\033[0;37mEj: ./develop new local.mysite.com mysite/public \033[0m"
         fi
+    # Muestra todos los contenedores vivos
+    elif [ "$1" == "all" ]; then
+        docker ps
     else
         $COMPOSE "$@"
     fi

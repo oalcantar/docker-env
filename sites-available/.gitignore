@@ -2,3 +2,12 @@
 */
 !.gitignore
 !default.conf
+!www.local.kichink.com.conf
+!api.local.kichink.com.conf
+!dev.local.admin.kichink.com.conf
+!dev.local.kontrol.kichink.com.conf
+!pagos.local.kichink.com.conf
+!kad.local.kichink.com.conf
+!expert.local.kichink.com.conf
+!www.local.atomicompany.com.conf
+
