@@ -4,25 +4,9 @@ services:
         build:
             context: ./build/apache-php
             dockerfile: Dockerfile
-            args:
-                - APIV2_SERVERNAME=${APIV2_SERVERNAME}
-                - APIV2_DOCUMENT_ROOT=${APIV2_DOCUMENT_ROOT}
-                - WWW_SERVERNAME=${WWW_SERVERNAME}
-                - WWW_DOCUMENT_ROOT=${WWW_DOCUMENT_ROOT}
-                - API_SERVERNAME=${API_SERVERNAME}
-                - API_DOCUMENT_ROOT=${API_DOCUMENT_ROOT}
-                - ADMIN_SERVERNAME=${ADMIN_SERVERNAME}
-                - ADMIN_DOCUMENT_ROOT=${ADMIN_DOCUMENT_ROOT}
-                - KONTROL_SERVERNAME=${KONTROL_SERVERNAME}
-                - KONTROL_DOCUMENT_ROOT=${KONTROL_DOCUMENT_ROOT}
-                - PAGOS_SERVERNAME=${PAGOS_SERVERNAME}
-                - PAGOS_DOCUMENT_ROOT=${PAGOS_DOCUMENT_ROOT}
-                - KAD_SERVERNAME=${KAD_SERVERNAME}
-                - KAD_DOCUMENT_ROOT=${KAD_DOCUMENT_ROOT}
-                - EXPERT_SERVERNAME=${EXPERT_SERVERNAME}
-                - EXPERT_DOCUMENT_ROOT=${EXPERT_DOCUMENT_ROOT}
-                - ATOMICO_SERVERNAME=${ATOMICO_SERVERNAME}
-                - ATOMICO_DOCUMENT_ROOT=${ATOMICO_DOCUMENT_ROOT}
+            # args:
+                #- WWW_SERVERNAME=${WWW_SERVERNAME}
+                #- WWW_DOCUMENT_ROOT=${WWW_DOCUMENT_ROOT}
         image: kichink/apache-php
         env_file:
           - ./.env
@@ -33,6 +17,7 @@ services:
             XDEBUG_CONFIG: remote_host=${REMOTE_HOST} remote_enable=on
         volumes:
             - ${APPLICATIONS_PATH}:/var/www/html
+            - ./sites-available:/etc/apache2/from-host
         networks:
             - appnet
     node-utils:
