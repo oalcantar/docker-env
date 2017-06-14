@@ -31,6 +31,8 @@ Listado de Comandos:
   - build \<app_name\>: realiza el build
   - serve \<app_name\>: levanta una aplicacion en node/grunt
   - ssh \<app_name\>: se conecta al contenedor de la aplicacion
+  - restart: reinicia los contenedores del archivo docker-compose.yml
+  - add \<servername\> \<documentroot>\: agrega un nuevo sitio a la configuracion de apache
 
 ####Nota: `app_name` puede ser `uikit`, `login`, `kontrol`, `micuenta`, `checkout`
 
