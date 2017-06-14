@@ -18,6 +18,7 @@ services:
         volumes:
             - ${APPLICATIONS_PATH}:/var/www/html
             - ./sites-available:/etc/apache2/from-host
+            # - ./sites-ssl:/etc/apache2/ssl
         networks:
             - appnet
     node-utils:
